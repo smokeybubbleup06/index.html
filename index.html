@@ -3,300 +3,438 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MISTRESS VIPER | EXCLUSIVE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MISTRESS VIPER | AI IMPERIUM</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        :root { --primary: #ff0f5b; --gold: #ffd700; --dark: #050505; --panel: #111; }
-        body { background: var(--dark); color: #eee; font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 80px; overflow-x: hidden; }
+        :root { 
+            --primary: #ff0055; 
+            --accent: #00f7ff;
+            --gold: #ffd700; 
+            --bg: #050505; 
+            --glass: rgba(20, 20, 20, 0.9);
+        }
         
-        /* NAV */
-        nav { position: fixed; top: 0; width: 100%; background: rgba(0,0,0,0.95); border-bottom: 1px solid #333; z-index: 100; padding: 12px 0; display:flex; justify-content:center; gap:30px; }
-        .nav-item { cursor: pointer; font-size: 0.9rem; font-weight: bold; color: #888; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
-        .nav-item.active { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        /* CONTAINER */
-        .container { max-width: 600px; margin: 80px auto 20px; padding: 15px; display: none; animation: fadeIn 0.5s; }
-        .container.active { display: block; }
-        @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-        
-        /* ELEMENTS */
-        .logo { text-align: center; font-family: 'Cinzel', serif; font-size: 2.8rem; color: #fff; text-shadow: 0 0 15px var(--primary); margin: 20px 0; cursor: pointer; }
-        .btn { background: var(--primary); color: white; border: none; padding: 14px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 10px; font-size: 1rem; box-shadow: 0 4px 15px rgba(255,15,91,0.3); }
-        .btn:hover { transform: scale(1.02); }
-        .btn-gold { background: linear-gradient(45deg, #ffd700, #b8860b); color: black; box-shadow: 0 4px 15px rgba(255,215,0,0.3); }
-        
-        /* CHAT */
-        #chat-widget { position: fixed; bottom: 0; left: 0; right: 0; height: 60vh; background: #000; border-top: 2px solid var(--primary); z-index: 200; display: none; flex-direction: column; box-shadow: 0 -5px 30px rgba(0,0,0,0.8); }
-        #chat-msgs { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
-        .msg { padding: 10px 14px; border-radius: 8px; font-size: 0.95rem; max-width: 85%; line-height: 1.4; }
-        .msg.bot { background: #1a1a1a; align-self: flex-start; border-left: 3px solid var(--primary); color: #ddd; }
-        .msg.user { background: var(--primary); align-self: flex-end; color: #fff; border-bottom-right-radius: 0; }
-        .chat-ctrl { padding: 15px; background: #111; display: flex; gap: 10px; border-top: 1px solid #333; }
-        input.field { width: 100%; padding: 12px; background: #222; border: 1px solid #444; color: white; border-radius: 6px; outline: none; }
-        input.field:focus { border-color: var(--primary); }
-        
-        /* VIP GRID */
-        .vip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .vip-item { position: relative; height: 180px; border-radius: 8px; overflow: hidden; border: 1px solid #333; cursor: pointer; }
-        .vip-item img { width: 100%; height: 100%; object-fit: cover; filter: blur(12px); transition: 0.5s; }
-        .vip-item:hover img { filter: blur(8px); }
-        .lock-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; color: var(--gold); text-shadow: 0 2px 5px black; z-index: 2; pointer-events: none; }
-        
-        /* MODALS */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 500; backdrop-filter: blur(5px); }
-        .modal-box { background: #111; padding: 25px; border: 1px solid var(--gold); width: 85%; max-width: 350px; text-align: center; border-radius: 12px; box-shadow: 0 0 30px rgba(255,215,0,0.1); }
+        body { 
+            background-color: var(--bg); 
+            background-image: radial-gradient(circle at 50% 10%, #1a000a 0%, #000 70%);
+            color: #eee; 
+            font-family: 'Rajdhani', sans-serif; 
+            margin: 0; 
+            padding-bottom: 90px; 
+            overflow-x: hidden; 
+        }
 
-        /* INCOMING CALL */
-        #call-overlay { display: none; position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: linear-gradient(145deg, #111, #222); border: 2px solid var(--primary); padding: 20px; z-index: 400; text-align: center; border-radius: 15px; width: 280px; box-shadow: 0 0 30px rgba(255,15,91,0.5); animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { transform:translateX(-50%) scale(1); } 50% { transform:translateX(-50%) scale(1.05); } 100% { transform:translateX(-50%) scale(1); } }
+        /* HEADER & CREDITS */
+        header {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(0,0,0,0.9);
+            border-bottom: 1px solid #333;
+            z-index: 1000;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        .brand { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #fff; letter-spacing: 2px; }
+        .credits-box { 
+            background: #111; border: 1px solid var(--primary); 
+            padding: 5px 12px; border-radius: 20px; font-size: 0.9rem; 
+            color: var(--primary); font-weight: bold; cursor: pointer;
+            box-shadow: 0 0 10px rgba(255,0,85,0.2);
+        }
+
+        /* BOTTOM NAV */
+        nav { 
+            position: fixed; bottom: 0; width: 100%; 
+            background: rgba(0,0,0,0.95); border-top: 1px solid #333; 
+            z-index: 1000; padding: 10px 0; display:flex; justify-content:space-around; 
+            padding-bottom: max(10px, env(safe-area-inset-bottom));
+        }
+        .nav-item { 
+            text-align: center; color: #666; font-size: 0.7rem; 
+            display: flex; flex-direction: column; gap: 4px; transition: 0.3s;
+        }
+        .nav-item i { font-size: 1.4rem; }
+        .nav-item.active { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+
+        /* MAIN CONTAINER */
+        .app-view { max-width: 600px; margin: 70px auto 0; padding: 15px; display: none; animation: slideUp 0.4s ease-out; }
+        .app-view.active { display: block; }
+        @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+        /* UI ELEMENTS */
+        .card { 
+            background: #111; border: 1px solid #333; 
+            border-radius: 12px; padding: 20px; margin-bottom: 20px; 
+            position: relative; overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+            background: linear-gradient(to bottom, var(--primary), transparent);
+        }
+        
+        .btn { 
+            background: var(--primary); color: white; border: none; 
+            padding: 12px; width: 100%; border-radius: 6px; 
+            font-weight: bold; cursor: pointer; text-transform: uppercase; 
+            font-family: 'Rajdhani', sans-serif; font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(255,0,85,0.3); letter-spacing: 1px;
+            margin-top: 10px;
+        }
+        .btn:active { transform: scale(0.98); }
+        .btn-gold { background: linear-gradient(45deg, #ffd700, #b8860b); color: #000; box-shadow: 0 4px 15px rgba(255,215,0,0.2); }
+        .btn-blue { background: linear-gradient(45deg, #00f7ff, #0051ff); color: #000; box-shadow: 0 4px 15px rgba(0,247,255,0.2); }
+
+        /* VIP GALLERY */
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .gal-item { 
+            aspect-ratio: 1; background: #222; border-radius: 8px; 
+            overflow: hidden; position: relative; border: 1px solid #333;
+            display: none; /* Auto-loader handles visibility */
+        }
+        .gal-item.loaded { display: block; }
+        .gal-item img { width: 100%; height: 100%; object-fit: cover; filter: blur(15px); transition: 0.5s; }
+        .gal-item:hover img { filter: blur(10px); }
+        .overlay-lock { 
+            position: absolute; inset: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 2;
+        }
+
+        /* CHAT OVERLAY (Floating) */
+        #chat-floater {
+            position: fixed; bottom: 85px; right: 20px; width: 60px; height: 60px;
+            background: var(--primary); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 20px rgba(255,0,85,0.5); z-index: 900;
+            cursor: pointer; animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(255,0,85,0.7); } 70% { box-shadow: 0 0 0 15px rgba(255,0,85,0); } 100% { box-shadow: 0 0 0 0 rgba(255,0,85,0); } }
+
+        #chat-window {
+            position: fixed; bottom: 0; left: 0; right: 0; height: 70vh;
+            background: #080808; border-top: 2px solid var(--primary);
+            z-index: 2000; display: none; flex-direction: column;
+            border-top-left-radius: 20px; border-top-right-radius: 20px;
+        }
+        #chat-msgs { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .msg { max-width: 80%; padding: 10px 15px; border-radius: 12px; font-size: 1rem; }
+        .msg.bot { background: #1a1a1a; color: #ccc; align-self: flex-start; border: 1px solid #333; }
+        .msg.user { background: var(--primary); color: #fff; align-self: flex-end; }
+
+        /* MODALS */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 5000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
+        .modal-content { background: #111; padding: 30px; border-radius: 16px; width: 90%; max-width: 350px; text-align: center; border: 1px solid var(--gold); }
+    
     </style>
 </head>
 <body>
 
-    <!-- SETTINGS / CONFIGURATION ZONE -->
+    <!-- SETTINGS / CONFIG -->
     <script>
-        // --- ⬇️ PASTE YOUR INFO HERE ⬇️ ---
         const CONFIG = {
-            cashApp: "$PUT_YOUR_TAG_HERE",   // Example: "$ViperMistress"
-            btcAddr: "PUT_BTC_ADDRESS_HERE", // Example: "bc1qxy..."
+            // YOUR UPDATED DETAILS
+            cashApp: "$mrsmokeshaq",
+            btcAddr: "bc1qg5c5r8vws63w4s78yw6znp80hmshlejk6mjcx6", 
+            email: "jaynarielle@yahoo.com",
+            
+            // Affiliate Link
             affiliateLink: "https://t.crjmpy.com/396104/9403/0?target=overlay&file_id=613421&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002",
             
-            // API KEYS (Leave empty if you don't have them yet, Chat will use backup mode)
-            openRouterKey: "", 
-            elevenLabsKey: "",
-            voiceId: "hA4zGnmTwX2NQiTRMt7o" // Default sexy voice
+            // API KEYS (Hardcoded for immediate launch)
+            keys: {
+                brain: "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",
+                voice: "sk_593e9c5b5d9e1cb6e02ed2bde47f3da8a456b46834aa4b46",
+                voiceId: "hA4zGnmTwX2NQiTRMt7o" // Default Seductive
+            }
         };
     </script>
 
-    <nav>
-        <div class="nav-item active" onclick="showTab('home')">Live Cam</div>
-        <div class="nav-item" onclick="showTab('vip')">Private</div>
-        <div class="nav-item" onclick="toggleChat()">Chat <span style="color:var(--primary)">●</span></div>
-    </nav>
+    <!-- HEADER -->
+    <header>
+        <div class="brand">JOI<span style="color:var(--primary)">.AI</span></div>
+        <div class="credits-box" onclick="openPay('Credits')">
+            💎 <span id="cred-count">0</span> CR
+        </div>
+    </header>
 
-    <div class="logo" onclick="openAdmin()">JOI.AI</div>
+    <!-- VIEWS -->
 
-    <!-- HOME TAB -->
-    <div id="home" class="container active">
-        <!-- VIDEO -->
-        <div style="border: 1px solid #333; margin-bottom: 20px; border-radius:8px; overflow:hidden; position:relative;">
-            <div style="position:absolute; top:10px; left:10px; background:red; color:white; padding:3px 8px; font-size:0.7rem; font-weight:bold; border-radius:4px; z-index:10;">● LIVE</div>
-            <video controls autoplay muted loop playsinline width="100%" style="display:block;">
+    <!-- 1. HOME / LIVE CAM -->
+    <div id="view-home" class="app-view active">
+        <div class="card" style="padding:0; border:none; height: 60vh;">
+            <div style="position:absolute; top:15px; left:15px; background:red; color:white; padding:4px 8px; font-weight:bold; font-size:0.8rem; border-radius:4px; z-index:10; animation: blink 2s infinite;">● LIVE</div>
+            <video id="main-vid" autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
                 <source src="1.mp4" type="video/mp4">
             </video>
         </div>
+        
+        <div class="card" style="text-align:center;">
+            <h3 style="margin:0; color:var(--gold);">UNLOCK EVERYTHING</h3>
+            <p style="color:#888; font-size:0.9rem;">Join the Elite VIP Club for full access.</p>
+            <button class="btn btn-gold" onclick="openPay('VIP Membership')">BECOME VIP ($20)</button>
+        </div>
+    </div>
 
-        <!-- AFFILIATE BANNER -->
-        <div style="text-align:center; margin-bottom:20px;">
-             <a href="javascript:void(0)" onclick="window.open(CONFIG.affiliateLink, '_blank')" style="text-decoration:none;">
-                <div style="background:#222; padding:15px; border:1px dashed var(--gold); color:var(--gold); border-radius:8px;">
-                    <i class="fas fa-video"></i> START PRIVATE CAM SESSION
-                </div>
-            </a>
+    <!-- 2. VIP VAULT -->
+    <div id="view-vault" class="app-view">
+        <h2 style="text-align:center; font-family:'Cinzel'; color:var(--primary);">VIP VAULT</h2>
+        <p style="text-align:center; color:#666; font-size:0.8rem; margin-top:-10px;">Premium Photos & Videos</p>
+        
+        <div class="gallery-grid" id="auto-gallery">
+            <!-- JS will fill this -->
+        </div>
+    </div>
+
+    <!-- 3. TRIBUTE STATION -->
+    <div id="view-tribute" class="app-view">
+        <div class="card">
+            <h2 style="color:var(--primary); margin-top:0;"><i class="fas fa-crown"></i> SUBMIT WIFE/GF</h2>
+            <p style="font-size:0.9rem; line-height:1.4;">
+                Do you want Mistress Viper to rate, humiliate, or edit your wife?
+                Submit her photo securely.
+            </p>
+            <div style="background:#222; padding:10px; border-radius:6px; margin:15px 0; font-size:0.8rem; color:#aaa;">
+                1. Pay the <strong>$10 Submission Fee</strong>.<br>
+                2. Upload photo via secure email.<br>
+                3. Receive your custom rating/edit.
+            </div>
+            <button class="btn" onclick="openPay('Tribute Fee')">PAY $10 FEE</button>
+            <button class="btn btn-blue" id="btn-email" style="display:none; margin-top:10px;" onclick="startSubmission()">📧 UPLOAD NOW</button>
         </div>
         
-        <button class="btn btn-gold" onclick="openPay('Full Access')">UNLOCK VIP LOUNGE ($20)</button>
-    </div>
-
-    <!-- VIP TAB -->
-    <div id="vip" class="container">
-        <h2 style="text-align:center; color:var(--gold); font-family:'Cinzel';">LOCKED CONTENT</h2>
-        <div class="vip-grid">
-            <!-- These look for vip1.jpg, vip2.jpg, etc. -->
-            <div class="vip-item" onclick="openPay('Photo Set 1')">
-                <img src="vip1.jpg" onerror="this.src='https://via.placeholder.com/300/111/333?text=Encrypted'">
-                <div class="lock-icon">🔒</div>
-            </div>
-            <div class="vip-item" onclick="openPay('Photo Set 2')">
-                <img src="vip2.jpg" onerror="this.src='https://via.placeholder.com/300/111/333?text=Encrypted'">
-                <div class="lock-icon">🔒</div>
-            </div>
-            <div class="vip-item" onclick="openPay('Video 1')">
-                <img src="vip3.jpg" onerror="this.src='https://via.placeholder.com/300/111/333?text=Encrypted'">
-                <div class="lock-icon">🔒</div>
-            </div>
-            <div class="vip-item" onclick="openPay('Video 2')">
-                <img src="vip4.jpg" onerror="this.src='https://via.placeholder.com/300/111/333?text=Encrypted'">
-                <div class="lock-icon">🔒</div>
-            </div>
+        <!-- Fake Recent Activity -->
+        <h4 style="color:#666; margin-bottom:10px; text-transform:uppercase;">Recent Submissions</h4>
+        <div style="font-size:0.8rem; color:#888;">
+            <div style="padding:8px; border-bottom:1px solid #222;">User992 submitted <strong>Blonde Wife</strong> (Rated 4/10)</div>
+            <div style="padding:8px; border-bottom:1px solid #222;">Cuck4Life submitted <strong>GF Yoga Pic</strong> (Humiliated)</div>
+            <div style="padding:8px; border-bottom:1px solid #222;">Anon submitted <strong>Wedding Photo</strong> (Face Swap)</div>
         </div>
     </div>
 
-    <!-- CHAT WIDGET -->
-    <div id="chat-widget">
-        <div style="padding:15px; background:#111; border-bottom:1px solid #333; display:flex; justify-content:space-between; align-items:center;">
-            <div style="display:flex; align-items:center; gap:10px;">
-                <div style="width:10px; height:10px; background:#0f0; border-radius:50%;"></div>
-                <span style="color:#fff; font-weight:bold;">MISTRESS VIPER</span>
+    <!-- 4. DEEPFAKE LAB -->
+    <div id="view-lab" class="app-view">
+        <div class="card" style="text-align:center;">
+            <h2 style="color:var(--accent); margin:0;">AI DEEPFAKE LAB</h2>
+            <p style="color:#888; font-size:0.8rem;">Undress or Swap Faces Instantly</p>
+            
+            <div style="margin:20px 0; border: 2px dashed #444; padding:30px; border-radius:10px;" onclick="document.getElementById('file-in').click()">
+                <i class="fas fa-cloud-upload-alt" style="font-size:2rem; color:var(--accent);"></i>
+                <p>Tap to Upload Target Photo</p>
+                <input type="file" id="file-in" hidden onchange="showPreview()">
             </div>
-            <span onclick="toggleChat()" style="cursor:pointer; font-size:1.2rem;">✕</span>
+            
+            <div id="preview-area" style="display:none;">
+                <img id="prev-img" style="width:100px; height:100px; object-fit:cover; border-radius:8px; border:1px solid var(--accent);">
+                <div style="margin:15px 0; height:6px; background:#222; border-radius:3px; overflow:hidden;">
+                    <div id="prog-bar" style="width:0%; height:100%; background:var(--accent); transition:2s;"></div>
+                </div>
+                <div id="status-text" style="font-size:0.8rem; color:#accent;">Ready...</div>
+            </div>
+
+            <button class="btn btn-blue" onclick="runFakeGen()">GENERATE (50 CR)</button>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav>
+        <div class="nav-item active" onclick="switchView('home', this)"><i class="fas fa-video"></i><span>LIVE</span></div>
+        <div class="nav-item" onclick="switchView('vault', this)"><i class="fas fa-lock"></i><span>VAULT</span></div>
+        <div class="nav-item" onclick="switchView('tribute', this)"><i class="fas fa-camera"></i><span>TRIBUTE</span></div>
+        <div class="nav-item" onclick="switchView('lab', this)"><i class="fas fa-magic"></i><span>AI LAB</span></div>
+    </nav>
+
+    <!-- CHAT FLOATER & WINDOW -->
+    <div id="chat-floater" onclick="toggleChat()">
+        <i class="fas fa-comment-dots" style="font-size:1.5rem; color:#fff;"></i>
+    </div>
+
+    <div id="chat-window">
+        <div style="padding:15px; background:#111; border-bottom:1px solid #333; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-weight:bold; color:#fff;">MISTRESS VIPER <span style="font-size:0.7rem; color:#0f0;">● ONLINE</span></span>
+            <span onclick="toggleChat()" style="cursor:pointer; padding:5px;">▼</span>
         </div>
         <div id="chat-msgs">
-            <div class="msg bot">I see you looking. Are you going to pay, or just waste my time?</div>
+            <div class="msg bot">Welcome, pet. You can watch, you can pay, or you can obey. Which will it be?</div>
         </div>
-        <div class="chat-ctrl">
-            <input type="text" id="chat-in" class="field" placeholder="Type here..." onkeypress="if(event.key==='Enter') sendMsg()">
-            <button onclick="sendMsg()" class="btn" style="width:auto; margin-top:0; padding:0 20px;">➤</button>
+        <div style="padding:15px; background:#111; display:flex; gap:10px;">
+            <input type="text" id="chat-in" style="flex:1; padding:12px; border-radius:20px; border:none; background:#222; color:white; outline:none;" placeholder="Type message..." onkeypress="if(event.key==='Enter') sendMsg()">
+            <button onclick="sendMsg()" style="width:40px; height:40px; border-radius:50%; border:none; background:var(--primary); color:white;"><i class="fas fa-paper-plane"></i></button>
         </div>
-    </div>
-
-    <!-- INCOMING CALL POPUP -->
-    <div id="call-overlay">
-        <div style="width:60px; height:60px; background:#333; border-radius:50%; margin:0 auto 10px; overflow:hidden;">
-            <i class="fas fa-user-secret" style="font-size:30px; line-height:60px; color:#fff;"></i>
-        </div>
-        <h3>Incoming Call...</h3>
-        <p style="color:#888; font-size:0.9rem;">Mistress Viper</p>
-        <button class="btn" style="background:#0b0;" onclick="window.open(CONFIG.affiliateLink, '_blank')">ANSWER VIDEO</button>
-        <button class="btn" style="background:#b00; margin-top:5px;" onclick="document.getElementById('call-overlay').style.display='none'">DECLINE</button>
     </div>
 
     <!-- PAYMENT MODAL -->
     <div id="pay-modal" class="modal">
-        <div class="modal-box">
-            <h2 style="color:var(--gold); margin-top:0;">VIP ACCESS</h2>
-            <p>Send <strong>$20</strong> to unlock full access.</p>
-            <div style="background:#000; padding:15px; text-align:left; font-size:0.85rem; margin-bottom:15px; border-radius:6px; border:1px solid #333; word-break: break-all;">
-                <div style="margin-bottom:10px;">
-                    <strong style="color:var(--primary)">CashApp:</strong><br>
-                    <span id="d-cash" style="color:#fff; font-family:monospace; font-size:1.1rem;">Loading...</span>
+        <div class="modal-content">
+            <h2 style="color:var(--gold); margin-top:0;">PREMIUM ACCESS</h2>
+            <p id="pay-desc">Unlock this feature now.</p>
+            
+            <div style="background:#000; padding:15px; text-align:left; font-size:0.9rem; border-radius:8px; margin:15px 0; border:1px solid #333;">
+                <!-- CashApp -->
+                <div style="margin-bottom:15px;">
+                    <div style="color:#aaa; font-size:0.8rem;">CashApp:</div>
+                    <div style="color:var(--primary); font-family:monospace; font-weight:bold; font-size:1.1rem; cursor:pointer;" onclick="copyTxt(CONFIG.cashApp)">
+                        <script>document.write(CONFIG.cashApp)</script>
+                    </div>
                 </div>
+                
+                <!-- Bitcoin -->
                 <div>
-                    <strong style="color:var(--gold)">Bitcoin:</strong><br>
-                    <span id="d-btc" style="color:#fff; font-family:monospace; font-size:0.9rem;">Loading...</span>
+                    <div style="color:#aaa; font-size:0.8rem;">Bitcoin (BTC):</div>
+                    <div style="color:var(--gold); font-family:monospace; font-size:0.75rem; word-break:break-all; cursor:pointer;" onclick="copyTxt(CONFIG.btcAddr)">
+                        <script>document.write(CONFIG.btcAddr)</script>
+                    </div>
                 </div>
+                
+                <div style="margin-top:10px; font-size:0.7rem; color:#555; text-align:center;">(Tap addresses to copy)</div>
             </div>
-            <button class="btn" onclick="document.getElementById('pay-modal').style.display='none'">I PAID (VERIFYING...)</button>
-        </div>
-    </div>
 
-    <!-- ADMIN MODAL (Hidden Backup) -->
-    <div id="admin-modal" class="modal">
-        <div class="modal-box">
-            <h3>ADMIN SETTINGS</h3>
-            <p style="font-size:0.8rem; color:#888;">(Settings in code take priority)</p>
-            <input id="k-brain" class="field" type="password" placeholder="OpenRouter API Key">
-            <input id="k-voice" class="field" type="password" placeholder="ElevenLabs API Key" style="margin-top:5px;">
-            <button class="btn" onclick="saveAdmin()">SAVE</button>
+            <button class="btn" onclick="confirmPay()">I HAVE PAID</button>
+            <button class="btn" style="background:transparent; border:1px solid #333; margin-top:5px; font-size:0.8rem;" onclick="document.getElementById('pay-modal').style.display='none'">CANCEL</button>
         </div>
     </div>
 
     <script>
-        // INIT
-        let clicks = 0;
-        
-        // Navigation
-        function showTab(id) {
-            document.querySelectorAll('.container').forEach(e => e.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            // Update active nav style
-            const idx = ['home','vip'].indexOf(id);
-            if(idx > -1) document.querySelectorAll('.nav-item')[idx].classList.add('active');
-        }
+        // --- LOGIC ---
 
-        function toggleChat() {
-            const c = document.getElementById('chat-widget');
-            c.style.display = (c.style.display === 'flex') ? 'none' : 'flex';
-        }
-
-        // Admin / Payments
-        function openAdmin() {
-            clicks++;
-            if(clicks === 3) {
-                document.getElementById('k-brain').value = localStorage.getItem('v_brain') || CONFIG.openRouterKey;
-                document.getElementById('k-voice').value = localStorage.getItem('v_voice') || CONFIG.elevenLabsKey;
-                document.getElementById('admin-modal').style.display = 'flex';
-                clicks = 0;
+        // 1. AUTO GALLERY
+        window.onload = function() {
+            const grid = document.getElementById('auto-gallery');
+            for(let i=1; i<=100; i++) { 
+                const div = document.createElement('div');
+                div.className = 'gal-item';
+                div.onclick = () => openPay('Unlock Photo #' + i);
+                div.innerHTML = `
+                    <img src="${i}.webp" onload="this.parentElement.classList.add('loaded')" onerror="this.parentElement.remove()">
+                    <div class="overlay-lock"><i class="fas fa-lock" style="font-size:1.5rem; color:var(--gold);"></i></div>
+                `;
+                grid.appendChild(div);
             }
+        };
+
+        // 2. NAVIGATION
+        function switchView(id, el) {
+            document.querySelectorAll('.app-view').forEach(d => d.classList.remove('active'));
+            document.getElementById('view-'+id).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            el.classList.add('active');
         }
 
-        function saveAdmin() {
-            localStorage.setItem('v_brain', document.getElementById('k-brain').value);
-            localStorage.setItem('v_voice', document.getElementById('k-voice').value);
-            document.getElementById('admin-modal').style.display = 'none';
-            alert('Keys Saved');
+        // 3. CHAT (AI POWERED)
+        function toggleChat() {
+            const w = document.getElementById('chat-window');
+            w.style.display = (w.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        function openPay(item) {
-            // Prefer Config, fallback to LocalStorage, fallback to Warning
-            const c = CONFIG.cashApp !== "$PUT_YOUR_TAG_HERE" ? CONFIG.cashApp : (localStorage.getItem('v_cash') || "Not Set");
-            const b = CONFIG.btcAddr !== "PUT_BTC_ADDRESS_HERE" ? CONFIG.btcAddr : (localStorage.getItem('v_btc') || "Not Set");
-            
-            document.getElementById('d-cash').innerText = c;
-            document.getElementById('d-btc').innerText = b;
-            document.getElementById('pay-modal').style.display = 'flex';
-        }
-
-        // Fake Call Timer (10s)
-        setTimeout(() => { document.getElementById('call-overlay').style.display = 'block'; }, 10000);
-
-        // CHAT LOGIC
         async function sendMsg() {
             const inp = document.getElementById('chat-in');
             const txt = inp.value.trim();
             if(!txt) return;
 
-            const b = document.getElementById('chat-msgs');
-            b.innerHTML += `<div class="msg user">${txt}</div>`;
+            // UI Update
+            const box = document.getElementById('chat-msgs');
+            box.innerHTML += `<div class="msg user">${txt}</div>`;
             inp.value = '';
-            b.scrollTop = b.scrollHeight;
+            box.scrollTop = box.scrollHeight;
 
-            // Determine Keys (Config first, then Saved)
-            const keyBrain = CONFIG.openRouterKey || localStorage.getItem('v_brain');
-            const keyVoice = CONFIG.elevenLabsKey || localStorage.getItem('v_voice');
-
-            if(!keyBrain) {
-                // FALLBACK MODE (No API Key)
-                setTimeout(() => {
-                    const replies = [
-                        "I can't hear you properly... come closer.",
-                        "You talk too much. Just send the money.",
-                        "Are you a good boy? Prove it.",
-                        "I'm bored. Entertain me.",
-                        "Is that all you have to say?",
-                        "Unlock the VIP if you want my full attention."
-                    ];
-                    const r = replies[Math.floor(Math.random() * replies.length)];
-                    b.innerHTML += `<div class="msg bot">${r} <br><i style='font-size:0.7rem; color:#666'>(Admin: Add API Key for AI)</i></div>`;
-                    b.scrollTop = b.scrollHeight;
-                }, 1000);
-                return;
-            }
-
-            // AI MODE
+            // AI Call
             try {
                 const req = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                     method: "POST",
-                    headers: { "Authorization": "Bearer " + keyBrain, "Content-Type": "application/json", "HTTP-Referer": window.location.href },
-                    body: JSON.stringify({ 
-                        model: "gryphe/mythomax-l2-13b", 
+                    headers: { "Authorization": "Bearer " + CONFIG.keys.brain, "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        model: "gryphe/mythomax-l2-13b",
                         messages: [
-                            {role:"system", content:"You are Mistress Viper. Dominant, seductive, money-hungry AI. Keep replies short and teasing."}, 
+                            {role:"system", content:"You are Mistress Viper. Dominant, money-hungry, seductive AI. Keep answers short, teasing, and demand money."},
                             {role:"user", content:txt}
-                        ] 
+                        ]
                     })
                 });
-                const d = await req.json();
-                const aiTxt = d.choices[0].message.content;
-                b.innerHTML += `<div class="msg bot">${aiTxt}</div>`;
-                b.scrollTop = b.scrollHeight;
+                const res = await req.json();
+                const aiTxt = res.choices[0].message.content;
+                box.innerHTML += `<div class="msg bot">${aiTxt}</div>`;
+                box.scrollTop = box.scrollHeight;
 
-                // Voice
-                if(keyVoice) {
-                    const vr = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${CONFIG.voiceId}`, {
-                        method: "POST", headers: { "xi-api-key": keyVoice, "Content-Type": "application/json" },
-                        body: JSON.stringify({ text: aiTxt, model_id: "eleven_multilingual_v2" })
-                    });
-                    if(vr.ok) new Audio(URL.createObjectURL(await vr.blob())).play();
+                // Voice Call (ElevenLabs)
+                const vReq = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${CONFIG.keys.voiceId}`, {
+                    method: "POST",
+                    headers: { "xi-api-key": CONFIG.keys.voice, "Content-Type": "application/json" },
+                    body: JSON.stringify({ text: aiTxt, model_id: "eleven_multilingual_v2" })
+                });
+                if(vReq.ok) {
+                    const blob = await vReq.blob();
+                    new Audio(URL.createObjectURL(blob)).play();
                 }
-            } catch(e) { 
-                console.error(e); 
-                b.innerHTML += `<div class="msg bot">... (System Error)</div>`; 
+
+            } catch(e) {
+                console.error(e);
+                box.innerHTML += `<div class="msg bot">... (I'm busy spending someone else's money. Try again.)</div>`;
             }
+        }
+
+        // 4. PAYMENTS & TRIBUTE
+        let currentItem = '';
+        function openPay(item) {
+            currentItem = item;
+            document.getElementById('pay-desc').innerText = "Send Payment for: " + item;
+            document.getElementById('pay-modal').style.display = 'flex';
+        }
+
+        function copyTxt(t) {
+            navigator.clipboard.writeText(t);
+            alert("Copied to clipboard!");
+        }
+
+        function confirmPay() {
+            document.getElementById('pay-modal').style.display = 'none';
+            
+            if(currentItem === 'Tribute Fee') {
+                document.getElementById('btn-email').style.display = 'block';
+                alert("Payment Verified! You may now submit your photo using the button.");
+            } else {
+                alert("Verifying on blockchain... This may take a moment. Please wait.");
+                // Fake Credits
+                const c = document.getElementById('cred-count');
+                c.innerText = parseInt(c.innerText) + 50;
+            }
+        }
+
+        function startSubmission() {
+            const subject = "TRIBUTE SUBMISSION - User ID " + Math.floor(Math.random()*1000);
+            const body = "I have paid the fee to " + CONFIG.cashApp + ". Attached is the photo for rating/edit.";
+            window.location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        // 5. DEEPFAKE LAB SIMULATION
+        function showPreview() {
+            document.getElementById('preview-area').style.display = 'block';
+            document.getElementById('prev-img').src = 'https://via.placeholder.com/100?text=IMG'; 
+        }
+
+        function runFakeGen() {
+            const bar = document.getElementById('prog-bar');
+            const txt = document.getElementById('status-text');
+            
+            let w = 0;
+            const int = setInterval(() => {
+                w += 5;
+                bar.style.width = w + '%';
+                if(w < 30) txt.innerText = "Scanning face map...";
+                else if(w < 60) txt.innerText = "Applying nude mesh...";
+                else if(w < 90) txt.innerText = "Rendering textures...";
+                
+                if(w >= 100) {
+                    clearInterval(int);
+                    txt.innerText = "ERROR: Server Overload.";
+                    alert("FREE SERVER BUSY.\n\nTo generate Deepfakes instantly, you must be a VIP Member ($20).\n\nRedirecting to payment...");
+                    openPay('VIP Deepfake Access');
+                }
+            }, 100);
         }
     </script>
 </body>
