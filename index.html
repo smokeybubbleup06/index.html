@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MISTRESS VIPER | AI IMPERIUM</title>
+    <title>MISTRESS VIPER | LIVE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     
@@ -14,7 +13,6 @@
             --accent: #00f7ff;
             --gold: #ffd700; 
             --bg: #050505; 
-            --glass: rgba(20, 20, 20, 0.9);
         }
         
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -29,303 +27,298 @@
             overflow-x: hidden; 
         }
 
-        /* HEADER & CREDITS */
+        /* HEADER */
         header {
             position: fixed; top: 0; width: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             border-bottom: 1px solid #333;
             z-index: 1000;
-            padding: 10px 20px;
+            padding: 10px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(10px);
         }
-        .brand { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #fff; letter-spacing: 2px; }
+        .brand { font-family: 'Cinzel', serif; font-size: 1.4rem; color: #fff; text-shadow: 0 0 10px var(--primary); cursor: pointer; }
         .credits-box { 
-            background: #111; border: 1px solid var(--primary); 
+            background: #111; border: 1px solid var(--gold); 
             padding: 5px 12px; border-radius: 20px; font-size: 0.9rem; 
-            color: var(--primary); font-weight: bold; cursor: pointer;
-            box-shadow: 0 0 10px rgba(255,0,85,0.2);
+            color: var(--gold); font-weight: bold; cursor: pointer;
         }
 
-        /* BOTTOM NAV */
+        /* AFFILIATE TICKER */
+        .ticker-wrap {
+            position: fixed; top: 55px; width: 100%; background: var(--primary);
+            color: white; font-weight: bold; font-size: 0.8rem; z-index: 900;
+            overflow: hidden; white-space: nowrap; padding: 5px 0; cursor: pointer;
+        }
+        .ticker { display: inline-block; animation: scroll 15s linear infinite; }
+        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* VIEWS */
+        .app-view { max-width: 600px; margin: 90px auto 0; padding: 15px; display: none; }
+        .app-view.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+        /* CARDS & BUTTONS */
+        .card { 
+            background: #111; border: 1px solid #333; 
+            border-radius: 12px; padding: 20px; margin-bottom: 20px; 
+            position: relative; overflow: hidden;
+        }
+        .btn { 
+            background: var(--primary); color: white; border: none; 
+            padding: 14px; width: 100%; border-radius: 6px; 
+            font-weight: bold; cursor: pointer; text-transform: uppercase; 
+            font-size: 1rem; margin-top: 10px;
+        }
+        .btn:active { transform: scale(0.98); }
+        .btn-gold { background: linear-gradient(45deg, #ffd700, #b8860b); color: #000; }
+
+        /* GALLERY */
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .gal-item { 
+            aspect-ratio: 1; background: #222; border-radius: 8px; 
+            overflow: hidden; position: relative; border: 1px solid #333;
+        }
+        .gal-item img { width: 100%; height: 100%; object-fit: cover; filter: blur(12px); }
+        .lock-overlay { 
+            position: absolute; inset: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 2;
+        }
+
+        /* CHAT */
+        #chat-window {
+            position: fixed; bottom: 0; left: 0; right: 0; height: 60vh;
+            background: #000; border-top: 2px solid var(--primary);
+            z-index: 2000; display: none; flex-direction: column;
+        }
+        #chat-msgs { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .msg { max-width: 80%; padding: 10px 15px; border-radius: 12px; font-size: 0.95rem; }
+        .msg.bot { background: #222; color: #ddd; align-self: flex-start; border-left: 3px solid var(--primary); }
+        .msg.user { background: var(--primary); color: #fff; align-self: flex-end; }
+
+        /* NAV */
         nav { 
             position: fixed; bottom: 0; width: 100%; 
             background: rgba(0,0,0,0.95); border-top: 1px solid #333; 
             z-index: 1000; padding: 10px 0; display:flex; justify-content:space-around; 
             padding-bottom: max(10px, env(safe-area-inset-bottom));
         }
-        .nav-item { 
-            text-align: center; color: #666; font-size: 0.7rem; 
-            display: flex; flex-direction: column; gap: 4px; transition: 0.3s;
-        }
-        .nav-item i { font-size: 1.4rem; }
-        .nav-item.active { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
-
-        /* MAIN CONTAINER */
-        .app-view { max-width: 600px; margin: 70px auto 0; padding: 15px; display: none; animation: slideUp 0.4s ease-out; }
-        .app-view.active { display: block; }
-        @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-
-        /* UI ELEMENTS */
-        .card { 
-            background: #111; border: 1px solid #333; 
-            border-radius: 12px; padding: 20px; margin-bottom: 20px; 
-            position: relative; overflow: hidden;
-        }
-        .card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
-            background: linear-gradient(to bottom, var(--primary), transparent);
-        }
-        
-        .btn { 
-            background: var(--primary); color: white; border: none; 
-            padding: 12px; width: 100%; border-radius: 6px; 
-            font-weight: bold; cursor: pointer; text-transform: uppercase; 
-            font-family: 'Rajdhani', sans-serif; font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(255,0,85,0.3); letter-spacing: 1px;
-            margin-top: 10px;
-        }
-        .btn:active { transform: scale(0.98); }
-        .btn-gold { background: linear-gradient(45deg, #ffd700, #b8860b); color: #000; box-shadow: 0 4px 15px rgba(255,215,0,0.2); }
-        .btn-blue { background: linear-gradient(45deg, #00f7ff, #0051ff); color: #000; box-shadow: 0 4px 15px rgba(0,247,255,0.2); }
-
-        /* VIP GALLERY */
-        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .gal-item { 
-            aspect-ratio: 1; background: #222; border-radius: 8px; 
-            overflow: hidden; position: relative; border: 1px solid #333;
-            display: none; /* Auto-loader handles visibility */
-        }
-        .gal-item.loaded { display: block; }
-        .gal-item img { width: 100%; height: 100%; object-fit: cover; filter: blur(15px); transition: 0.5s; }
-        .gal-item:hover img { filter: blur(10px); }
-        .overlay-lock { 
-            position: absolute; inset: 0; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; z-index: 2;
-        }
-
-        /* CHAT OVERLAY (Floating) */
-        #chat-floater {
-            position: fixed; bottom: 85px; right: 20px; width: 60px; height: 60px;
-            background: var(--primary); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 20px rgba(255,0,85,0.5); z-index: 900;
-            cursor: pointer; animation: pulseGlow 2s infinite;
-        }
-        @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(255,0,85,0.7); } 70% { box-shadow: 0 0 0 15px rgba(255,0,85,0); } 100% { box-shadow: 0 0 0 0 rgba(255,0,85,0); } }
-
-        #chat-window {
-            position: fixed; bottom: 0; left: 0; right: 0; height: 70vh;
-            background: #080808; border-top: 2px solid var(--primary);
-            z-index: 2000; display: none; flex-direction: column;
-            border-top-left-radius: 20px; border-top-right-radius: 20px;
-        }
-        #chat-msgs { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
-        .msg { max-width: 80%; padding: 10px 15px; border-radius: 12px; font-size: 1rem; }
-        .msg.bot { background: #1a1a1a; color: #ccc; align-self: flex-start; border: 1px solid #333; }
-        .msg.user { background: var(--primary); color: #fff; align-self: flex-end; }
+        .nav-item { color: #666; text-align: center; font-size: 0.7rem; }
+        .nav-item i { font-size: 1.4rem; display: block; margin-bottom: 4px; }
+        .nav-item.active { color: var(--primary); }
 
         /* MODALS */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 5000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
-        .modal-content { background: #111; padding: 30px; border-radius: 16px; width: 90%; max-width: 350px; text-align: center; border: 1px solid var(--gold); }
-    
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; display: none; align-items: center; justify-content: center; }
+        .modal-content { background: #111; padding: 25px; border-radius: 16px; width: 85%; max-width: 350px; text-align: center; border: 1px solid var(--gold); }
+        .field { width: 100%; padding: 10px; background: #222; border: 1px solid #444; color: white; margin-bottom: 10px; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-    <!-- SETTINGS / CONFIG -->
+    <!-- 1. CONFIGURATION (Updated) -->
     <script>
         const CONFIG = {
-            // YOUR UPDATED DETAILS
             cashApp: "$mrsmokeshaq",
-            btcAddr: "bc1qg5c5r8vws63w4s78yw6znp80hmshlejk6mjcx6", 
+            btcAddr: "bc1qg5c5r8vws63w4s78yw6znp80hmshlejk6mjcx6",
             email: "jaynarielle@yahoo.com",
-            
-            // Affiliate Link
-            affiliateLink: "https://t.crjmpy.com/396104/9403/0?target=overlay&file_id=613421&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002",
-            
-            // API KEYS (Hardcoded for immediate launch)
-            keys: {
-                brain: "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",
-                voice: "sk_593e9c5b5d9e1cb6e02ed2bde47f3da8a456b46834aa4b46",
-                voiceId: "hA4zGnmTwX2NQiTRMt7o" // Default Seductive
-            }
+            affiliate: "https://t.crjmpy.com/396104/9403/0?target=overlay&file_id=613421&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002",
+            voiceId: "hA4zGnmTwX2NQiTRMt7o" 
         };
     </script>
 
-    <!-- HEADER -->
+    <!-- 2. HEADER -->
     <header>
-        <div class="brand">JOI<span style="color:var(--primary)">.AI</span></div>
-        <div class="credits-box" onclick="openPay('Credits')">
-            💎 <span id="cred-count">0</span> CR
+        <div class="brand" onclick="openAdmin()" title="Triple Click for Admin">JOI.AI</div>
+        <div class="credits-box" onclick="alert('Earn credits by paying via CashApp/BTC')">
+            💎 <span id="cr-balance">0</span> CR
         </div>
     </header>
 
-    <!-- VIEWS -->
+    <!-- 3. AFFILIATE TICKER -->
+    <div class="ticker-wrap" onclick="window.open(CONFIG.affiliate, '_blank')">
+        <div class="ticker">
+            PRIVATE SHOWS AVAILABLE NOW • CLICK HERE TO WATCH • MISTRESS VIPER LIVE • 50% OFF VIP MEMBERSHIP • CLICK HERE
+        </div>
+    </div>
 
-    <!-- 1. HOME / LIVE CAM -->
+    <!-- 4. VIEWS -->
+    
+    <!-- HOME / VIDEO -->
     <div id="view-home" class="app-view active">
-        <div class="card" style="padding:0; border:none; height: 60vh;">
-            <div style="position:absolute; top:15px; left:15px; background:red; color:white; padding:4px 8px; font-weight:bold; font-size:0.8rem; border-radius:4px; z-index:10; animation: blink 2s infinite;">● LIVE</div>
-            <video id="main-vid" autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
+        <div class="card" style="padding:0; border:none; height: 50vh; cursor:pointer;" onclick="window.open(CONFIG.affiliate, '_blank')">
+            <div style="position:absolute; top:15px; left:15px; background:red; color:white; padding:4px 8px; font-weight:bold; font-size:0.8rem; border-radius:4px; z-index:10;">● LIVE</div>
+            <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
                 <source src="1.mp4" type="video/mp4">
             </video>
+            <div style="position:absolute; bottom:20px; left:0; right:0; text-align:center;">
+                <span style="background:var(--primary); padding:8px 16px; border-radius:20px; font-weight:bold; box-shadow:0 0 15px var(--primary);">
+                    TAP TO JOIN PRIVATE CAM
+                </span>
+            </div>
         </div>
         
-        <div class="card" style="text-align:center;">
-            <h3 style="margin:0; color:var(--gold);">UNLOCK EVERYTHING</h3>
-            <p style="color:#888; font-size:0.9rem;">Join the Elite VIP Club for full access.</p>
-            <button class="btn btn-gold" onclick="openPay('VIP Membership')">BECOME VIP ($20)</button>
+        <div class="card">
+            <h3 style="color:var(--gold); margin-top:0;">VIP MEMBERSHIP</h3>
+            <ul style="text-align:left; color:#ccc; font-size:0.9rem; line-height:1.6;">
+                <li>🔓 Uncensored Gallery</li>
+                <li>🎙️ Voice Chat Enabled</li>
+                <li>📹 Deepfake Access</li>
+            </ul>
+            <button class="btn btn-gold" onclick="openPay('VIP Access', 20)">BUY ACCESS ($20)</button>
         </div>
     </div>
 
-    <!-- 2. VIP VAULT -->
+    <!-- VAULT -->
     <div id="view-vault" class="app-view">
-        <h2 style="text-align:center; font-family:'Cinzel'; color:var(--primary);">VIP VAULT</h2>
-        <p style="text-align:center; color:#666; font-size:0.8rem; margin-top:-10px;">Premium Photos & Videos</p>
-        
-        <div class="gallery-grid" id="auto-gallery">
-            <!-- JS will fill this -->
-        </div>
+        <h2 style="color:var(--primary); text-align:center;">PRIVATE VAULT</h2>
+        <div class="gallery-grid" id="gallery-container"></div>
     </div>
 
-    <!-- 3. TRIBUTE STATION -->
+    <!-- TRIBUTE -->
     <div id="view-tribute" class="app-view">
         <div class="card">
-            <h2 style="color:var(--primary); margin-top:0;"><i class="fas fa-crown"></i> SUBMIT WIFE/GF</h2>
-            <p style="font-size:0.9rem; line-height:1.4;">
-                Do you want Mistress Viper to rate, humiliate, or edit your wife?
-                Submit her photo securely.
-            </p>
-            <div style="background:#222; padding:10px; border-radius:6px; margin:15px 0; font-size:0.8rem; color:#aaa;">
-                1. Pay the <strong>$10 Submission Fee</strong>.<br>
-                2. Upload photo via secure email.<br>
-                3. Receive your custom rating/edit.
-            </div>
-            <button class="btn" onclick="openPay('Tribute Fee')">PAY $10 FEE</button>
-            <button class="btn btn-blue" id="btn-email" style="display:none; margin-top:10px;" onclick="startSubmission()">📧 UPLOAD NOW</button>
-        </div>
-        
-        <!-- Fake Recent Activity -->
-        <h4 style="color:#666; margin-bottom:10px; text-transform:uppercase;">Recent Submissions</h4>
-        <div style="font-size:0.8rem; color:#888;">
-            <div style="padding:8px; border-bottom:1px solid #222;">User992 submitted <strong>Blonde Wife</strong> (Rated 4/10)</div>
-            <div style="padding:8px; border-bottom:1px solid #222;">Cuck4Life submitted <strong>GF Yoga Pic</strong> (Humiliated)</div>
-            <div style="padding:8px; border-bottom:1px solid #222;">Anon submitted <strong>Wedding Photo</strong> (Face Swap)</div>
+            <h2 style="color:var(--primary);"><i class="fas fa-camera"></i> RATE MY WIFE</h2>
+            <p>Upload a photo for Mistress Viper to rate or humiliate.</p>
+            <button class="btn" onclick="openPay('Tribute Fee', 10)">PAY $10 FEE</button>
+            <button id="btn-submit" class="btn" style="background:#222; border:1px solid #444; display:none;" onclick="startEmail()">📧 UPLOAD PHOTO</button>
         </div>
     </div>
 
-    <!-- 4. DEEPFAKE LAB -->
+    <!-- AI LAB -->
     <div id="view-lab" class="app-view">
         <div class="card" style="text-align:center;">
-            <h2 style="color:var(--accent); margin:0;">AI DEEPFAKE LAB</h2>
-            <p style="color:#888; font-size:0.8rem;">Undress or Swap Faces Instantly</p>
-            
-            <div style="margin:20px 0; border: 2px dashed #444; padding:30px; border-radius:10px;" onclick="document.getElementById('file-in').click()">
-                <i class="fas fa-cloud-upload-alt" style="font-size:2rem; color:var(--accent);"></i>
-                <p>Tap to Upload Target Photo</p>
-                <input type="file" id="file-in" hidden onchange="showPreview()">
+            <h2 style="color:var(--accent);">DEEPFAKE LAB</h2>
+            <div style="border:2px dashed #333; padding:30px; margin:20px 0; border-radius:8px;" onclick="document.getElementById('fake-file').click()">
+                <i class="fas fa-upload" style="font-size:2rem; color:#555;"></i>
+                <p style="color:#666;">Upload Target Photo</p>
+                <input type="file" id="fake-file" hidden>
             </div>
-            
-            <div id="preview-area" style="display:none;">
-                <img id="prev-img" style="width:100px; height:100px; object-fit:cover; border-radius:8px; border:1px solid var(--accent);">
-                <div style="margin:15px 0; height:6px; background:#222; border-radius:3px; overflow:hidden;">
-                    <div id="prog-bar" style="width:0%; height:100%; background:var(--accent); transition:2s;"></div>
-                </div>
-                <div id="status-text" style="font-size:0.8rem; color:#accent;">Ready...</div>
-            </div>
-
-            <button class="btn btn-blue" onclick="runFakeGen()">GENERATE (50 CR)</button>
+            <button class="btn" style="background:var(--accent); color:black;" onclick="spendCredits(50, 'Generating Deepfake...')">GENERATE (50 CREDITS)</button>
         </div>
     </div>
 
-    <!-- BOTTOM NAV -->
+    <!-- NAV -->
     <nav>
-        <div class="nav-item active" onclick="switchView('home', this)"><i class="fas fa-video"></i><span>LIVE</span></div>
-        <div class="nav-item" onclick="switchView('vault', this)"><i class="fas fa-lock"></i><span>VAULT</span></div>
-        <div class="nav-item" onclick="switchView('tribute', this)"><i class="fas fa-camera"></i><span>TRIBUTE</span></div>
-        <div class="nav-item" onclick="switchView('lab', this)"><i class="fas fa-magic"></i><span>AI LAB</span></div>
+        <div class="nav-item active" onclick="switchView('home', this)"><i class="fas fa-video"></i>LIVE</div>
+        <div class="nav-item" onclick="switchView('vault', this)"><i class="fas fa-lock"></i>VAULT</div>
+        <div class="nav-item" onclick="switchView('tribute', this)"><i class="fas fa-camera"></i>TRIBUTE</div>
+        <div class="nav-item" onclick="toggleChat()"><i class="fas fa-comment"></i>CHAT</div>
     </nav>
 
-    <!-- CHAT FLOATER & WINDOW -->
-    <div id="chat-floater" onclick="toggleChat()">
-        <i class="fas fa-comment-dots" style="font-size:1.5rem; color:#fff;"></i>
-    </div>
-
+    <!-- CHAT -->
     <div id="chat-window">
-        <div style="padding:15px; background:#111; border-bottom:1px solid #333; display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-weight:bold; color:#fff;">MISTRESS VIPER <span style="font-size:0.7rem; color:#0f0;">● ONLINE</span></span>
-            <span onclick="toggleChat()" style="cursor:pointer; padding:5px;">▼</span>
+        <div style="padding:15px; border-bottom:1px solid #333; display:flex; justify-content:space-between;">
+            <span style="color:white; font-weight:bold;">MISTRESS VIPER</span>
+            <span onclick="toggleChat()" style="cursor:pointer;">✕</span>
         </div>
         <div id="chat-msgs">
-            <div class="msg bot">Welcome, pet. You can watch, you can pay, or you can obey. Which will it be?</div>
+            <div class="msg bot">You're back. Did you bring my money?</div>
         </div>
-        <div style="padding:15px; background:#111; display:flex; gap:10px;">
-            <input type="text" id="chat-in" style="flex:1; padding:12px; border-radius:20px; border:none; background:#222; color:white; outline:none;" placeholder="Type message..." onkeypress="if(event.key==='Enter') sendMsg()">
-            <button onclick="sendMsg()" style="width:40px; height:40px; border-radius:50%; border:none; background:var(--primary); color:white;"><i class="fas fa-paper-plane"></i></button>
+        <div style="padding:15px; display:flex; gap:10px;">
+            <input type="text" id="chat-in" class="field" style="margin:0;" placeholder="Type here..." onkeypress="if(event.key==='Enter') sendMsg()">
+            <button onclick="sendMsg()" class="btn" style="width:auto; margin:0; padding:0 20px;">➤</button>
         </div>
     </div>
 
     <!-- PAYMENT MODAL -->
     <div id="pay-modal" class="modal">
         <div class="modal-content">
-            <h2 style="color:var(--gold); margin-top:0;">PREMIUM ACCESS</h2>
-            <p id="pay-desc">Unlock this feature now.</p>
+            <h2 style="color:var(--gold);">PAYMENT REQUIRED</h2>
+            <p id="pay-reason" style="color:#aaa;">You need credits for this.</p>
             
-            <div style="background:#000; padding:15px; text-align:left; font-size:0.9rem; border-radius:8px; margin:15px 0; border:1px solid #333;">
-                <!-- CashApp -->
-                <div style="margin-bottom:15px;">
-                    <div style="color:#aaa; font-size:0.8rem;">CashApp:</div>
-                    <div style="color:var(--primary); font-family:monospace; font-weight:bold; font-size:1.1rem; cursor:pointer;" onclick="copyTxt(CONFIG.cashApp)">
-                        <script>document.write(CONFIG.cashApp)</script>
-                    </div>
-                </div>
-                
-                <!-- Bitcoin -->
-                <div>
-                    <div style="color:#aaa; font-size:0.8rem;">Bitcoin (BTC):</div>
-                    <div style="color:var(--gold); font-family:monospace; font-size:0.75rem; word-break:break-all; cursor:pointer;" onclick="copyTxt(CONFIG.btcAddr)">
-                        <script>document.write(CONFIG.btcAddr)</script>
-                    </div>
-                </div>
-                
-                <div style="margin-top:10px; font-size:0.7rem; color:#555; text-align:center;">(Tap addresses to copy)</div>
+            <div style="background:#000; padding:15px; border-radius:8px; border:1px solid #333; text-align:left; font-size:0.9rem;">
+                <p style="margin:5px 0;"><strong style="color:var(--primary)">CashApp:</strong> $mrsmokeshaq</p>
+                <p style="margin:5px 0;"><strong style="color:var(--gold)">BTC:</strong> <span style="font-size:0.7rem;">bc1qg5c5r8vws63w4s78yw6znp80hmshlejk6mjcx6</span></p>
             </div>
+            
+            <button class="btn" onclick="verifyPayment()">I HAVE PAID</button>
+            <button class="btn" style="background:transparent; border:1px solid #333; margin-top:5px;" onclick="document.getElementById('pay-modal').style.display='none'">CANCEL</button>
+        </div>
+    </div>
 
-            <button class="btn" onclick="confirmPay()">I HAVE PAID</button>
-            <button class="btn" style="background:transparent; border:1px solid #333; margin-top:5px; font-size:0.8rem;" onclick="document.getElementById('pay-modal').style.display='none'">CANCEL</button>
+    <!-- ADMIN MODAL (HIDDEN) -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <h3>ADMIN PANEL</h3>
+            <p style="font-size:0.8rem; color:#888;">Paste your NEW keys here. They will stay private in your browser.</p>
+            <input id="key-brain" class="field" placeholder="OpenRouter API Key">
+            <input id="key-voice" class="field" placeholder="ElevenLabs API Key">
+            <button class="btn" onclick="saveKeys()">SAVE KEYS</button>
         </div>
     </div>
 
     <script>
         // --- LOGIC ---
+        
+        // 1. CREDITS SYSTEM
+        let credits = parseInt(localStorage.getItem('user_credits') || "0");
+        document.getElementById('cr-balance').innerText = credits;
 
-        // 1. AUTO GALLERY
+        function spendCredits(cost, actionName) {
+            if(credits >= cost) {
+                credits -= cost;
+                localStorage.setItem('user_credits', credits);
+                document.getElementById('cr-balance').innerText = credits;
+                alert("SUCCESS: " + actionName + "\n(This is a demo, check email for results)");
+            } else {
+                openPay(actionName + " (Requires " + cost + " CR)", cost);
+            }
+        }
+
+        function verifyPayment() {
+            // Simulate verification success
+            document.getElementById('pay-modal').style.display = 'none';
+            alert("Payment detected! Adding 100 Credits...");
+            credits += 100;
+            localStorage.setItem('user_credits', credits);
+            document.getElementById('cr-balance').innerText = credits;
+            
+            // Unlock submission button if that was the request
+            document.getElementById('btn-submit').style.display = 'block';
+        }
+
+        // 2. PAYMENT UI
+        function openPay(reason, amt) {
+            document.getElementById('pay-reason').innerText = reason;
+            document.getElementById('pay-modal').style.display = 'flex';
+        }
+
+        function startEmail() {
+            window.location.href = `mailto:${CONFIG.email}?subject=PAID SUBMISSION&body=I have paid. Attached is my photo.`;
+        }
+
+        // 3. ADMIN / KEYS
+        let adminClicks = 0;
+        function openAdmin() {
+            adminClicks++;
+            if(adminClicks === 3) {
+                document.getElementById('admin-modal').style.display = 'flex';
+                document.getElementById('key-brain').value = localStorage.getItem('k_brain') || "";
+                document.getElementById('key-voice').value = localStorage.getItem('k_voice') || "";
+                adminClicks = 0;
+            }
+        }
+        function saveKeys() {
+            localStorage.setItem('k_brain', document.getElementById('key-brain').value);
+            localStorage.setItem('k_voice', document.getElementById('key-voice').value);
+            alert("Keys Saved Securely!");
+            document.getElementById('admin-modal').style.display = 'none';
+        }
+
+        // 4. AUTO GALLERY
         window.onload = function() {
-            const grid = document.getElementById('auto-gallery');
-            for(let i=1; i<=100; i++) { 
-                const div = document.createElement('div');
-                div.className = 'gal-item';
-                div.onclick = () => openPay('Unlock Photo #' + i);
-                div.innerHTML = `
-                    <img src="${i}.webp" onload="this.parentElement.classList.add('loaded')" onerror="this.parentElement.remove()">
-                    <div class="overlay-lock"><i class="fas fa-lock" style="font-size:1.5rem; color:var(--gold);"></i></div>
-                `;
-                grid.appendChild(div);
+            const grid = document.getElementById('gallery-container');
+            for(let i=1; i<=60; i++) {
+                const d = document.createElement('div');
+                d.className = 'gal-item';
+                d.onclick = () => spendCredits(10, 'Unlock Photo #' + i);
+                d.innerHTML = `<img src="${i}.webp" onerror="this.parentElement.remove()"><div class="lock-overlay"><i class="fas fa-lock"></i></div>`;
+                grid.appendChild(d);
             }
         };
 
-        // 2. NAVIGATION
-        function switchView(id, el) {
-            document.querySelectorAll('.app-view').forEach(d => d.classList.remove('active'));
-            document.getElementById('view-'+id).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            el.classList.add('active');
-        }
-
-        // 3. CHAT (AI POWERED)
+        // 5. CHAT (Now uses Saved Keys)
         function toggleChat() {
             const w = document.getElementById('chat-window');
             w.style.display = (w.style.display === 'flex') ? 'none' : 'flex';
@@ -336,23 +329,26 @@
             const txt = inp.value.trim();
             if(!txt) return;
 
-            // UI Update
             const box = document.getElementById('chat-msgs');
             box.innerHTML += `<div class="msg user">${txt}</div>`;
             inp.value = '';
-            box.scrollTop = box.scrollHeight;
 
-            // AI Call
+            const kBrain = localStorage.getItem('k_brain');
+            const kVoice = localStorage.getItem('k_voice');
+
+            if(!kBrain) {
+                box.innerHTML += `<div class="msg bot" style="color:red;">(SYSTEM: Please Triple-Click 'JOI.AI' logo to set API Keys)</div>`;
+                return;
+            }
+
             try {
+                // LLM
                 const req = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                     method: "POST",
-                    headers: { "Authorization": "Bearer " + CONFIG.keys.brain, "Content-Type": "application/json" },
+                    headers: { "Authorization": "Bearer " + kBrain, "Content-Type": "application/json", "HTTP-Referer": window.location.href },
                     body: JSON.stringify({
                         model: "gryphe/mythomax-l2-13b",
-                        messages: [
-                            {role:"system", content:"You are Mistress Viper. Dominant, money-hungry, seductive AI. Keep answers short, teasing, and demand money."},
-                            {role:"user", content:txt}
-                        ]
+                        messages: [{role:"system", content:"You are Mistress Viper. Dominant, money-hungry. Short replies."}, {role:"user", content:txt}]
                     })
                 });
                 const res = await req.json();
@@ -360,82 +356,32 @@
                 box.innerHTML += `<div class="msg bot">${aiTxt}</div>`;
                 box.scrollTop = box.scrollHeight;
 
-                // Voice Call (ElevenLabs)
-                const vReq = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${CONFIG.keys.voiceId}`, {
-                    method: "POST",
-                    headers: { "xi-api-key": CONFIG.keys.voice, "Content-Type": "application/json" },
-                    body: JSON.stringify({ text: aiTxt, model_id: "eleven_multilingual_v2" })
-                });
-                if(vReq.ok) {
-                    const blob = await vReq.blob();
-                    new Audio(URL.createObjectURL(blob)).play();
+                // TTS
+                if(kVoice) {
+                    const vReq = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${CONFIG.voiceId}`, {
+                        method: "POST",
+                        headers: { "xi-api-key": kVoice, "Content-Type": "application/json" },
+                        body: JSON.stringify({ text: aiTxt, model_id: "eleven_multilingual_v2" })
+                    });
+                    if(vReq.ok) {
+                        const b = await vReq.blob();
+                        new Audio(URL.createObjectURL(b)).play();
+                    }
                 }
-
             } catch(e) {
-                console.error(e);
-                box.innerHTML += `<div class="msg bot">... (I'm busy spending someone else's money. Try again.)</div>`;
+                box.innerHTML += `<div class="msg bot">Error: Check Keys</div>`;
             }
         }
 
-        // 4. PAYMENTS & TRIBUTE
-        let currentItem = '';
-        function openPay(item) {
-            currentItem = item;
-            document.getElementById('pay-desc').innerText = "Send Payment for: " + item;
-            document.getElementById('pay-modal').style.display = 'flex';
-        }
-
-        function copyTxt(t) {
-            navigator.clipboard.writeText(t);
-            alert("Copied to clipboard!");
-        }
-
-        function confirmPay() {
-            document.getElementById('pay-modal').style.display = 'none';
-            
-            if(currentItem === 'Tribute Fee') {
-                document.getElementById('btn-email').style.display = 'block';
-                alert("Payment Verified! You may now submit your photo using the button.");
-            } else {
-                alert("Verifying on blockchain... This may take a moment. Please wait.");
-                // Fake Credits
-                const c = document.getElementById('cred-count');
-                c.innerText = parseInt(c.innerText) + 50;
-            }
-        }
-
-        function startSubmission() {
-            const subject = "TRIBUTE SUBMISSION - User ID " + Math.floor(Math.random()*1000);
-            const body = "I have paid the fee to " + CONFIG.cashApp + ". Attached is the photo for rating/edit.";
-            window.location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        }
-
-        // 5. DEEPFAKE LAB SIMULATION
-        function showPreview() {
-            document.getElementById('preview-area').style.display = 'block';
-            document.getElementById('prev-img').src = 'https://via.placeholder.com/100?text=IMG'; 
-        }
-
-        function runFakeGen() {
-            const bar = document.getElementById('prog-bar');
-            const txt = document.getElementById('status-text');
-            
-            let w = 0;
-            const int = setInterval(() => {
-                w += 5;
-                bar.style.width = w + '%';
-                if(w < 30) txt.innerText = "Scanning face map...";
-                else if(w < 60) txt.innerText = "Applying nude mesh...";
-                else if(w < 90) txt.innerText = "Rendering textures...";
-                
-                if(w >= 100) {
-                    clearInterval(int);
-                    txt.innerText = "ERROR: Server Overload.";
-                    alert("FREE SERVER BUSY.\n\nTo generate Deepfakes instantly, you must be a VIP Member ($20).\n\nRedirecting to payment...");
-                    openPay('VIP Deepfake Access');
-                }
-            }, 100);
+        // Nav Switch
+        function switchView(id, el) {
+            document.querySelectorAll('.app-view').forEach(d => d.classList.remove('active'));
+            document.getElementById('view-'+id).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            el.classList.add('active');
         }
     </script>
 </body>
 </html>
+
+
