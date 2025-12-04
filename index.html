@@ -5,152 +5,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MISTRESS VIPER | EXCLUSIVE</title>
+    <title>FADED VELVET | JOI.AI</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --primary: #e60023; /* Premium Red */
-            --dark: #0a0a0a;
-            --glass: rgba(22, 22, 22, 0.85);
-            --border: rgba(255, 255, 255, 0.1);
-            --text-muted: #888;
+            --primary: #b30047; /* Velvet Red */
+            --glow: #ff0055;
+            --dark: #050002;
+            --glass: rgba(20, 0, 10, 0.9);
             --gold: #d4af37;
         }
         
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
         
         body { 
-            background-color: #000;
-            color: #fff; 
-            font-family: 'Inter', sans-serif; 
+            background-color: var(--dark);
+            color: #eee; 
+            font-family: 'Montserrat', sans-serif; 
             margin: 0; 
-            padding-bottom: 80px; /* Space for nav */
+            padding-top: 90px; /* Space for header + banner */
+            padding-bottom: 80px; 
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER & BANNER --- */
         header {
-            position: fixed; top: 0; width: 100%; height: 60px;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
+            position: fixed; top: 0; width: 100%; height: 50px;
+            background: #000; z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 20px;
+            padding: 0 15px; border-bottom: 1px solid #222;
         }
-        .logo { font-family: 'Cinzel', serif; font-size: 1.2rem; letter-spacing: 2px; font-weight: 700; color: #fff; cursor: pointer; }
-        .logo span { color: var(--primary); }
-        .balance { 
-            font-size: 0.85rem; background: rgba(255,255,255,0.05); 
-            padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border);
-            color: var(--gold); font-weight: 600; cursor: pointer;
+        .brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 1px; color: #fff; font-weight: 700; }
+        .brand span { color: var(--primary); }
+        
+        /* THE MONEY MAKER BANNER */
+        .affiliate-ticker {
+            position: fixed; top: 50px; width: 100%; height: 40px;
+            background: var(--glow); color: #fff;
+            z-index: 999; overflow: hidden; white-space: nowrap;
+            display: flex; align-items: center;
+            box-shadow: 0 0 15px var(--glow);
+            cursor: pointer;
         }
+        .ticker-text {
+            display: inline-block;
+            font-weight: 800; font-size: 0.9rem; text-transform: uppercase;
+            animation: scroll-left 12s linear infinite;
+        }
+        @keyframes scroll-left { 0% { transform: translateX(100%); } 100% { transform: translateX(-150%); } }
 
         /* --- NAVIGATION --- */
         nav {
             position: fixed; bottom: 0; width: 100%; height: 70px;
-            background: rgba(0,0,0,0.95); border-top: 1px solid var(--border);
+            background: rgba(0,0,0,0.95); border-top: 1px solid #222;
             display: flex; justify-content: space-around; align-items: center;
             z-index: 1000; padding-bottom: env(safe-area-inset-bottom);
         }
         .nav-btn {
-            display: flex; flex-direction: column; align-items: center; gap: 5px;
-            color: #666; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;
-            transition: 0.3s; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            color: #555; font-size: 0.65rem; text-transform: uppercase;
+            transition: 0.3s;
         }
-        .nav-btn i { font-size: 1.2rem; }
-        .nav-btn.active { color: var(--primary); }
+        .nav-btn i { font-size: 1.4rem; }
+        .nav-btn.active { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
 
         /* --- LAYOUT --- */
-        .view { display: none; padding-top: 70px; animation: fadeEffect 0.4s; }
+        .view { display: none; animation: fadeIn 0.5s; padding: 15px; max-width: 600px; margin: 0 auto; }
         .view.active { display: block; }
-        @keyframes fadeEffect { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .container { max-width: 600px; margin: 0 auto; padding: 0 15px; }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 
         /* --- COMPONENTS --- */
         .card {
-            background: #111; border: 1px solid var(--border);
-            border-radius: 12px; overflow: hidden; margin-bottom: 20px;
+            background: #110005; border: 1px solid #330015;
+            border-radius: 8px; overflow: hidden; margin-bottom: 20px;
+            position: relative;
         }
-        .card-header { padding: 15px; border-bottom: 1px solid var(--border); font-family: 'Cinzel'; font-weight: bold; color: #ddd; display: flex; align-items: center; gap: 10px; }
-        .card-body { padding: 20px; }
-        
         .btn {
-            width: 100%; padding: 14px; border: none; border-radius: 8px;
-            font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;
-            cursor: pointer; transition: 0.2s; margin-top: 10px;
+            width: 100%; padding: 15px; border: none; border-radius: 4px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer; margin-top: 10px; font-size: 0.9rem;
         }
-        .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(230,0,35,0.3); }
-        .btn-gold { background: linear-gradient(135deg, #d4af37, #aa8c2c); color: #000; }
-        .btn-dark { background: #222; color: #fff; border: 1px solid #333; }
-        .btn:active { transform: scale(0.98); }
+        .btn-main { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(179,0,71,0.4); }
+        .btn-gold { background: linear-gradient(45deg, #d4af37, #f7e7ce); color: #000; }
 
-        /* --- VIDEO HERO --- */
-        .hero-cam {
-            width: 100%; height: 60vh; position: relative;
-            background: #000; overflow: hidden;
-            border-bottom: 1px solid var(--border);
+        /* --- GALLERY (AUTO LOADER) --- */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .grid-item { 
+            aspect-ratio: 1; background: #222; position: relative; overflow: hidden; border-radius: 6px;
+            display: none; /* Hidden until loaded */
         }
-        .hero-cam video { width: 100%; height: 100%; object-fit: cover; }
-        .live-tag {
-            position: absolute; top: 20px; left: 20px;
-            background: rgba(255,0,0,0.8); color: white;
-            padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;
-            display: flex; align-items: center; gap: 6px;
-        }
-        .live-dot { width: 8px; height: 8px; background: white; border-radius: 50%; animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-
-        /* --- PARTNER CHANNELS (AFFILIATE GRID) --- */
-        .partner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .partner-card {
-            background: #1a1a1a; border-radius: 8px; overflow: hidden; border: 1px solid #333;
-            text-align: center; cursor: pointer; transition: 0.2s;
-        }
-        .partner-card:hover { border-color: var(--primary); }
-        .partner-img { height: 80px; background: #222; display: flex; align-items: center; justify-content: center; color: #444; }
-        .partner-info { padding: 10px; font-size: 0.8rem; color: #aaa; }
-        .partner-tag { background: var(--primary); color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 2px; }
+        .grid-item.visible { display: block; }
+        .grid-item img { width: 100%; height: 100%; object-fit: cover; filter: blur(10px); transition: 0.3s; }
+        .grid-item:hover img { filter: blur(5px); }
+        .lock-icon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 2; }
 
         /* --- CHAT --- */
-        .chat-float {
-            position: fixed; bottom: 80px; right: 20px;
-            width: 55px; height: 55px; background: var(--primary);
+        .chat-btn {
+            position: fixed; bottom: 85px; right: 20px;
+            width: 60px; height: 60px; background: var(--primary);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 20px rgba(230,0,35,0.4); z-index: 900; cursor: pointer;
+            box-shadow: 0 0 20px var(--primary); z-index: 900; animation: pulse 2s infinite;
         }
-        .chat-window {
-            position: fixed; bottom: 0; left: 0; right: 0; height: 75vh;
-            background: #111; z-index: 2000; border-top: 1px solid var(--primary);
-            display: none; flex-direction: column; border-radius: 20px 20px 0 0;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        
+        .chat-win {
+            position: fixed; bottom: 0; left: 0; right: 0; height: 70vh;
+            background: #000; border-top: 2px solid var(--primary); z-index: 2000;
+            display: none; flex-direction: column;
         }
-        .chat-header { padding: 15px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
-        .chat-body { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 12px; }
-        .msg { max-width: 80%; padding: 10px 14px; border-radius: 12px; font-size: 0.9rem; line-height: 1.4; }
-        .msg.ai { background: #222; color: #ccc; align-self: flex-start; border: 1px solid #333; }
-        .msg.user { background: var(--primary); color: #fff; align-self: flex-end; }
-        .chat-input-area { padding: 15px; background: #0a0a0a; border-top: 1px solid #222; display: flex; gap: 10px; }
-        .chat-input { flex: 1; background: #222; border: none; padding: 12px; border-radius: 8px; color: white; }
+        .chat-body { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .msg { max-width: 85%; padding: 12px; border-radius: 12px; font-size: 0.9rem; }
+        .msg.ai { background: #1a050a; color: #ddd; align-self: flex-start; border: 1px solid #330015; }
+        .msg.user { background: var(--primary); color: white; align-self: flex-end; }
 
-        /* --- MODALS --- */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 5000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-        .modal-box { width: 90%; max-width: 380px; background: #111; border: 1px solid #333; border-radius: 16px; padding: 25px; text-align: center; }
-        .modal-title { color: var(--gold); font-family: 'Cinzel'; font-size: 1.4rem; margin-bottom: 10px; }
-
-        /* --- CALL OVERLAY --- */
-        #call-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 4000;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .avatar-circle { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 20px; overflow: hidden; }
-        .avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
-        .call-actions { display: flex; gap: 40px; margin-top: 40px; }
-        .call-btn { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .call-accept { background: #4cd964; animation: shake 1.5s infinite; }
-        .call-decline { background: #ff3b30; }
-        @keyframes shake { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        /* --- MODAL --- */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; display: none; align-items: center; justify-content: center; }
+        .modal-box { background: #111; padding: 30px; border-radius: 10px; width: 90%; max-width: 400px; text-align: center; border: 1px solid var(--gold); }
+        .wallet { font-family: monospace; background: #000; padding: 10px; color: var(--gold); word-break: break-all; margin: 10px 0; border: 1px solid #333; }
 
     </style>
 </head>
@@ -163,305 +135,230 @@
             cashApp: "$mrsmokeshaq",
             btc: "bc1qg5c5r8vws63w4s78yw6znp80hmshlejk6mjcx6",
             email: "jaynarielle@yahoo.com",
-            voiceId: "hA4zGnmTwX2NQiTRMt7o" // ElevenLabs ID
+            voiceId: "hA4zGnmTwX2NQiTRMt7o"
         };
     </script>
 
     <!-- HEADER -->
     <header>
-        <div class="logo" id="logo-trig" onclick="adminTrig()">JOI<span>.AI</span></div>
-        <div class="balance" onclick="payModal('Credit Top-up')">💎 <span id="cr-val">0</span></div>
+        <div class="brand" onclick="adminKeys()">FADED VELVET <span>JOI</span></div>
+        <div style="font-size:0.8rem; color:#888;">CREDITS: <span id="cr-display" style="color:var(--primary); font-weight:bold;">0</span></div>
     </header>
 
-    <!-- VIEW: LIVE -->
-    <div id="v-live" class="view active">
-        <!-- Hero Video -->
-        <div class="hero-cam">
-            <div class="live-tag"><div class="live-dot"></div> LIVE</div>
-            <video autoplay muted loop playsinline id="bg-vid">
+    <!-- AFFILIATE BANNER (MONEY MAKER) -->
+    <div class="affiliate-ticker" onclick="window.open(CFG.affiliate, '_blank')">
+        <div class="ticker-text">
+            ⚠️ 18+ ONLY • LIVE PRIVATE SHOWS • CLICK HERE TO WATCH MISTRESS VIPER LIVE • 50% OFF VIP MEMBERSHIP TODAY ONLY • CLICK HERE
+        </div>
+    </div>
+
+    <!-- VIEW 1: HOME -->
+    <div id="v-home" class="view active">
+        <!-- Main Video -->
+        <div class="card" style="height: 50vh; border:none;" onclick="window.open(CFG.affiliate, '_blank')">
+            <video id="hero-vid" autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
                 <source src="1.mp4" type="video/mp4">
             </video>
+            <div style="position:absolute; bottom:20px; width:100%; text-align:center;">
+                <span style="background:var(--primary); color:white; padding:8px 20px; font-weight:bold; border-radius:20px; box-shadow:0 0 20px var(--primary);">
+                    ENTER LIVE ROOM
+                </span>
+            </div>
         </div>
 
-        <div class="container" style="margin-top: 20px;">
-            <!-- VIP CTA -->
-            <div class="card">
-                <div class="card-body" style="text-align: center;">
-                    <h3 style="margin: 0 0 5px 0; color: var(--gold);">JOIN VIP CLUB</h3>
-                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">Unlock Voice Chat, Deepfakes & Uncensored Gallery.</p>
-                    <button class="btn btn-primary" onclick="payModal('VIP Membership ($20)')">GET ACCESS - $20</button>
-                </div>
-            </div>
-
-            <!-- PARTNER CHANNELS (AFFILIATES) -->
-            <h4 style="color: #666; margin-bottom: 10px; font-size: 0.8rem; letter-spacing: 1px;">PREMIUM CHANNELS</h4>
-            <div class="partner-grid">
-                <div class="partner-card" onclick="window.open(CFG.affiliate, '_blank')">
-                    <div class="partner-img"><i class="fas fa-video fa-2x"></i></div>
-                    <div class="partner-info"><span class="partner-tag">LIVE</span> <br> Private Shows</div>
-                </div>
-                <div class="partner-card" onclick="window.open(CFG.affiliate, '_blank')">
-                    <div class="partner-img"><i class="fas fa-venus-mars fa-2x"></i></div>
-                    <div class="partner-info"><span class="partner-tag">NEW</span> <br> Hardcore Cams</div>
-                </div>
-                <div class="partner-card" onclick="window.open(CFG.affiliate, '_blank')">
-                    <div class="partner-img"><i class="fas fa-play-circle fa-2x"></i></div>
-                    <div class="partner-info"><span class="partner-tag">HD</span> <br> 4K VODs</div>
-                </div>
-                <div class="partner-card" onclick="window.open(CFG.affiliate, '_blank')">
-                    <div class="partner-img"><i class="fas fa-star fa-2x"></i></div>
-                    <div class="partner-info"><span class="partner-tag">VIP</span> <br> Exclusive</div>
-                </div>
-            </div>
+        <!-- VIP Sell -->
+        <div class="card" style="padding:20px; text-align:center;">
+            <h2 style="color:var(--gold); margin:0; font-family:'Playfair Display';">VIP ACCESS</h2>
+            <p style="color:#888; font-size:0.9rem;">Unlock Chat, Deepfakes & The Vault.</p>
+            <button class="btn btn-gold" onclick="payModal('VIP Membership ($20)')">JOIN NOW ($20)</button>
         </div>
     </div>
 
-    <!-- VIEW: VAULT -->
+    <!-- VIEW 2: VAULT (AUTO-DISCOVERY) -->
     <div id="v-vault" class="view">
-        <div class="container">
-            <div class="card">
-                <div class="card-header"><i class="fas fa-lock"></i> PRIVATE VAULT</div>
-                <div class="card-body">
-                    <p style="color:#aaa; font-size:0.9rem;">Exclusive content for VIP members only.</p>
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 15px;" id="vault-grid"></div>
-                </div>
-            </div>
+        <h2 style="color:var(--primary); font-family:'Playfair Display'; text-align:center;">THE VAULT</h2>
+        <div class="grid" id="auto-grid">
+            <!-- Content Loads Here -->
         </div>
     </div>
 
-    <!-- VIEW: TRIBUTE (Redesigned) -->
+    <!-- VIEW 3: TRIBUTE (SUBMIT) -->
     <div id="v-tribute" class="view">
-        <div class="container">
-            <div class="card">
-                <div class="card-header" style="color: var(--primary);"><i class="fas fa-camera"></i> SUBMIT YOUR WIFE</div>
-                <div class="card-body">
-                    <p style="font-size:0.9rem; line-height: 1.5; color: #ccc;">
-                        Share your wife or girlfriend with the world. Submit her photo to "The Wall" for the community to pay tribute to.
-                    </p>
-                    <div style="background:#1a1a1a; padding:15px; border-radius:8px; margin: 15px 0; font-size: 0.85rem; color: #888;">
-                        <ul style="margin:0; padding-left:20px;">
-                            <li>Upload photo securely.</li>
-                            <li>Mistress Viper rates/approves it.</li>
-                            <li>We post it to the Public Wall.</li>
-                        </ul>
-                    </div>
-                    <button class="btn btn-primary" onclick="payModal('Submission Fee ($10)')">PAY $10 FEE</button>
-                    <button class="btn btn-dark" id="sub-btn" style="display:none;" onclick="startSub()">📧 UPLOAD NOW</button>
-                </div>
+        <div class="card" style="padding:20px;">
+            <h3 style="color:var(--primary); margin-top:0;">SUBMIT YOUR WIFE</h3>
+            <p style="color:#ccc; font-size:0.9rem; line-height:1.6;">
+                The community demands tribute. Submit photos of your partner for rating and humiliation.
+            </p>
+            <div style="background:#000; padding:15px; border-radius:6px; margin:15px 0; color:#888; font-size:0.8rem;">
+                1. Pay the $10 Fee below.<br>
+                2. Take a screenshot of payment.<br>
+                3. Email photo + proof to Mistress Viper.
             </div>
-
-            <!-- Wall Preview -->
-            <h4 style="color:#666; margin-bottom:10px;">RECENT SUBMISSIONS</h4>
-            <div style="font-size:0.8rem; color:#888; display:flex; flex-direction:column; gap:10px;">
-                <div style="padding:10px; background:#111; border:1px solid #222; border-radius:6px;">
-                    <span style="color:var(--primary);">AnonUser:</span> "Just sent my wife's yoga pics. Make her famous."
-                </div>
-                <div style="padding:10px; background:#111; border:1px solid #222; border-radius:6px;">
-                    <span style="color:var(--primary);">Cuck33:</span> "Tributing the blonde on the wall right now."
-                </div>
-            </div>
+            <button class="btn btn-main" onclick="payModal('Submission Fee ($10)')">PAY FEE ($10)</button>
+            <a href="mailto:jaynarielle@yahoo.com" class="btn" style="display:block; text-align:center; text-decoration:none; background:#222; color:#fff; margin-top:10px;">EMAIL SUBMISSION</a>
         </div>
     </div>
 
-    <!-- VIEW: AI LAB -->
+    <!-- VIEW 4: LAB -->
     <div id="v-lab" class="view">
-        <div class="container">
-            <div class="card">
-                <div class="card-header"><i class="fas fa-magic"></i> DEEPFAKE LAB</div>
-                <div class="card-body" style="text-align: center;">
-                    <div style="border: 2px dashed #333; padding: 40px; border-radius: 10px; margin-bottom: 20px;" onclick="document.getElementById('df-file').click()">
-                        <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: #444;"></i>
-                        <p style="color: #666; margin-top: 10px;">Tap to Upload Target</p>
-                        <input type="file" id="df-file" hidden>
-                    </div>
-                    <button class="btn btn-primary" onclick="spend(50, 'Generate Deepfake')">GENERATE (50 CR)</button>
-                </div>
+        <div class="card" style="padding:20px; text-align:center;">
+            <h3 style="color:var(--primary);">AI DEEPFAKE LAB</h3>
+            <p style="color:#666; font-size:0.9rem;">Server Status: <span style="color:green;">ONLINE</span></p>
+            <div style="border:2px dashed #333; padding:40px; margin:20px 0;" onclick="alert('Please Purchase Credits first.')">
+                <i class="fas fa-upload" style="font-size:2rem; color:#555;"></i>
+                <p>Upload Photo</p>
             </div>
+            <button class="btn btn-main" onclick="payModal('50 Credits Pack')">BUY 50 CREDITS ($10)</button>
         </div>
     </div>
 
-    <!-- CHAT (Floating) -->
-    <div class="chat-float" onclick="toggleChat()">
-        <i class="fas fa-comment-dots" style="font-size: 1.5rem; color: #fff;"></i>
-    </div>
+    <!-- CHAT BUBBLE -->
+    <div class="chat-btn" onclick="toggleChat()"><i class="fas fa-comment"></i></div>
     
-    <div class="chat-window" id="chat-win">
-        <div class="chat-header">
-            <span>MISTRESS VIPER <span style="font-size:0.7rem; color:#0f0; margin-left:5px;">● ONLINE</span></span>
-            <i class="fas fa-times" onclick="toggleChat()" style="cursor:pointer; color:#666;"></i>
+    <div class="chat-win" id="chat-win">
+        <div style="padding:15px; background:#111; display:flex; justify-content:space-between; align-items:center;">
+            <span style="color:white; font-weight:bold;">MISTRESS VIPER</span>
+            <i class="fas fa-chevron-down" onclick="toggleChat()" style="color:#666;"></i>
         </div>
-        <div class="chat-body" id="chat-box">
-            <div class="msg ai">I'm waiting. Are you going to just stare, or pay?</div>
+        <div class="chat-body" id="chat-msgs">
+            <div class="msg ai">I see you looking. Are you going to pay tribute?</div>
         </div>
-        <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chat-txt" placeholder="Type a message..." onkeypress="if(event.key==='Enter') send()">
-            <button style="background:var(--primary); border:none; width:40px; border-radius:8px; color:white;" onclick="send()"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
-
-    <!-- NAV BAR -->
-    <nav>
-        <div class="nav-btn active" onclick="go('live', this)"><i class="fas fa-video"></i> Live</div>
-        <div class="nav-btn" onclick="go('vault', this)"><i class="fas fa-lock"></i> Vault</div>
-        <div class="nav-btn" onclick="go('tribute', this)"><i class="fas fa-camera"></i> Tributes</div>
-        <div class="nav-btn" onclick="go('lab', this)"><i class="fas fa-robot"></i> AI Lab</div>
-    </nav>
-
-    <!-- INCOMING CALL TRAP -->
-    <div id="call-overlay">
-        <div class="avatar-circle">
-            <img src="https://via.placeholder.com/150/000000/ff0055?text=VIPER" alt="Viper">
-        </div>
-        <h2 style="font-family:'Cinzel'; margin:0;">MISTRESS VIPER</h2>
-        <p style="color:#888;">Incoming Video Call...</p>
-        <div class="call-actions">
-            <div class="call-btn call-decline" onclick="closeCall()"><i class="fas fa-phone-slash" style="color:white; font-size:1.5rem;"></i></div>
-            <div class="call-btn call-accept" onclick="acceptCall()"><i class="fas fa-video" style="color:white; font-size:1.5rem;"></i></div>
+        <div style="padding:15px; display:flex; gap:10px;">
+            <input id="chat-in" style="flex:1; padding:12px; background:#222; border:none; color:white; border-radius:6px;" placeholder="Message..." onkeypress="if(event.key==='Enter') sendMsg()">
+            <button onclick="sendMsg()" style="background:var(--primary); border:none; color:white; width:50px; border-radius:6px;"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <!-- PAY MODAL -->
-    <div class="modal-overlay" id="mod-pay">
+    <div class="modal" id="pay-mod">
         <div class="modal-box">
-            <div class="modal-title">SECURE PAYMENT</div>
-            <p id="pay-detail" style="color:#aaa; font-size:0.9rem;">Unlock Feature</p>
+            <h2 style="color:var(--gold); margin-top:0;">SEND PAYMENT</h2>
+            <p id="pay-item" style="color:#aaa;">Item Name</p>
             
-            <div style="background:#000; padding:15px; border-radius:8px; text-align:left; margin:20px 0; border:1px solid #333;">
-                <div style="margin-bottom:10px;">
-                    <span style="color:#666; font-size:0.8rem;">CashApp:</span><br>
-                    <span style="color:#fff; font-family:monospace; font-size:1.1rem; cursor:pointer;" onclick="cp(CFG.cashApp)">$mrsmokeshaq</span>
-                </div>
-                <div>
-                    <span style="color:#666; font-size:0.8rem;">Bitcoin:</span><br>
-                    <span style="color:var(--gold); font-family:monospace; font-size:0.8rem; word-break:break-all; cursor:pointer;" onclick="cp(CFG.btc)">bc1qg5c5r8vws63w4s78yw6znp80hmshlejk6mjcx6</span>
-                </div>
+            <div style="text-align:left; margin:20px 0;">
+                <div style="color:var(--primary); font-size:0.8rem; font-weight:bold;">CASHAPP:</div>
+                <div class="wallet" onclick="cp(CFG.cashApp)">$mrsmokeshaq</div>
+                
+                <div style="color:var(--gold); font-size:0.8rem; font-weight:bold; margin-top:15px;">BITCOIN:</div>
+                <div class="wallet" onclick="cp(CFG.btc)" style="font-size:0.7rem;">bc1qg5c5r8vws63w4s78yw6znp80hmshlejk6mjcx6</div>
             </div>
+
+            <p style="color:#ff0055; font-size:0.8rem; font-weight:bold;">⚠️ NO FREE ACCESS.</p>
+            <p style="color:#888; font-size:0.8rem;">After payment, email screenshot to:<br>jaynarielle@yahoo.com</p>
             
-            <button class="btn btn-primary" onclick="payDone()">I HAVE SENT PAYMENT</button>
-            <button class="btn btn-dark" style="margin-top:10px;" onclick="document.getElementById('mod-pay').style.display='none'">CANCEL</button>
+            <button class="btn btn-main" onclick="closePay()">I HAVE SENT PAYMENT</button>
+            <button class="btn" style="background:transparent; color:#666;" onclick="document.getElementById('pay-mod').style.display='none'">CANCEL</button>
         </div>
     </div>
 
-    <!-- ADMIN KEYS MODAL -->
-    <div class="modal-overlay" id="mod-admin">
+    <!-- ADMIN MODAL -->
+    <div class="modal" id="admin-mod">
         <div class="modal-box">
-            <h3 style="color:var(--primary);">ADMIN SETTINGS</h3>
-            <input id="k-brain" class="chat-input" placeholder="OpenRouter Key" style="width:100%; margin-bottom:10px;">
-            <input id="k-voice" class="chat-input" placeholder="ElevenLabs Key" style="width:100%; margin-bottom:10px;">
-            <button class="btn btn-primary" onclick="saveK()">SAVE & CONNECT</button>
+            <h3>API SETUP</h3>
+            <input id="k-brain" style="width:100%; padding:10px; margin-bottom:10px; background:#222; border:1px solid #444; color:white;" placeholder="OpenRouter Key">
+            <input id="k-voice" style="width:100%; padding:10px; margin-bottom:10px; background:#222; border:1px solid #444; color:white;" placeholder="ElevenLabs Key">
+            <button class="btn btn-main" onclick="saveKeys()">SAVE</button>
         </div>
     </div>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-btn active" onclick="switchView('home', this)"><i class="fas fa-video"></i>Live</div>
+        <div class="nav-btn" onclick="switchView('vault', this)"><i class="fas fa-lock"></i>Vault</div>
+        <div class="nav-btn" onclick="switchView('tribute', this)"><i class="fas fa-camera"></i>Submit</div>
+        <div class="nav-btn" onclick="switchView('lab', this)"><i class="fas fa-robot"></i>AI Lab</div>
+    </nav>
 
     <script>
-        // --- CORE SYSTEM ---
-        let credits = parseInt(localStorage.getItem('cr') || 0);
-        document.getElementById('cr-val').innerText = credits;
-
-        // Auto-run features
-        setTimeout(() => {
-            if(!sessionStorage.getItem('call_shown')) {
-                document.getElementById('call-overlay').style.display = 'flex';
-                sessionStorage.setItem('call_shown', 'true');
+        // 1. AUTO DISCOVERY SCRIPT (The Magic)
+        // Checks for files 1.webp to 20.webp, 1.jpg to 20.jpg, etc.
+        window.onload = function() {
+            const grid = document.getElementById('auto-grid');
+            
+            function tryLoad(name, type) {
+                const img = new Image();
+                img.src = name;
+                img.onload = function() {
+                    const d = document.createElement('div');
+                    d.className = 'grid-item visible';
+                    d.onclick = () => payModal('Unlock Content');
+                    d.innerHTML = `<img src="${name}"><div class="lock-icon"><i class="fas fa-lock fa-2x" style="color:var(--gold)"></i></div>`;
+                    grid.appendChild(d);
+                };
             }
-        }, 8000); // Call trigger 8s
 
-        // Navigation
-        function go(id, el) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById('v-'+id).classList.add('active');
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            if(el) el.classList.add('active');
-        }
+            // Loop to check files 1 through 30
+            for(let i=1; i<=30; i++) {
+                tryLoad(i + '.webp');
+                tryLoad(i + '.jpg');
+                tryLoad(i + '.png');
+                tryLoad(i + '.mp4'); // Note: MP4s in img tags show preview in some browsers, or fail. Ideally use poster.
+            }
 
-        // --- VAULT FILLER ---
-        const vGrid = document.getElementById('vault-grid');
-        for(let i=1; i<=18; i++) {
-            vGrid.innerHTML += `
-                <div style="aspect-ratio:1; background:#222; border-radius:4px; overflow:hidden; position:relative;" onclick="payModal('Unlock Photo ${i}')">
-                    <img src="${i}.webp" style="width:100%; height:100%; object-fit:cover; filter:blur(8px);" onerror="this.style.display='none'">
-                    <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;"><i class="fas fa-lock" style="color:rgba(255,255,255,0.5);"></i></div>
-                </div>`;
-        }
+            // Check API Keys
+            if(!localStorage.getItem('kb')) {
+                setTimeout(() => {
+                    const msgs = document.getElementById('chat-msgs');
+                    msgs.innerHTML += `<div class="msg ai" style="color:red; font-size:0.8rem;">(Admin: Triple-click header to set API keys)</div>`;
+                }, 1000);
+            }
+        };
 
-        // --- CALL TRAP ---
-        function closeCall() {
-            document.getElementById('call-overlay').style.display = 'none';
-        }
-        function acceptCall() {
-            closeCall();
-            payModal('Join Private Video Call ($50)');
-        }
-
-        // --- PAYMENT & ACTIONS ---
+        // 2. PAYMENT LOGIC (REAL)
         function payModal(item) {
-            document.getElementById('pay-detail').innerText = item;
-            document.getElementById('mod-pay').style.display = 'flex';
-        }
-        function cp(txt) {
-            navigator.clipboard.writeText(txt);
-            alert('Address Copied!');
-        }
-        function payDone() {
-            document.getElementById('mod-pay').style.display = 'none';
-            alert("Verifying blockchain transaction... (This takes 1-2 mins). Credits will be added automatically.");
-            credits += 50;
-            localStorage.setItem('cr', credits);
-            document.getElementById('cr-val').innerText = credits;
-            document.getElementById('sub-btn').style.display = 'block'; // Unlock tribute button
-        }
-        function spend(amt, reason) {
-            if(credits >= amt) {
-                credits -= amt;
-                document.getElementById('cr-val').innerText = credits;
-                localStorage.setItem('cr', credits);
-                alert("Processing: " + reason);
-            } else {
-                payModal(reason + " (Need " + amt + " CR)");
-            }
-        }
-        function startSub() {
-            window.location.href = `mailto:${CFG.email}?subject=WIFE SUBMISSION&body=I have paid. Attached is her photo.`;
+            document.getElementById('pay-item').innerText = "Payment for: " + item;
+            document.getElementById('pay-mod').style.display = 'flex';
         }
 
-        // --- CHAT & AI ---
-        function toggleChat() {
-            const w = document.getElementById('chat-win');
-            w.style.display = w.style.display === 'flex' ? 'none' : 'flex';
+        function closePay() {
+            document.getElementById('pay-mod').style.display = 'none';
+            alert("Payment marked as PENDING.\n\nPlease email proof to " + CFG.email + " to receive your credits/unlock code.");
+            // DO NOT ADD CREDITS AUTOMATICALLY
         }
-        
-        // ADMIN TRIGGER
-        let clks = 0;
-        function adminTrig() {
-            clks++;
-            if(clks === 3) {
-                document.getElementById('mod-admin').style.display = 'flex';
+
+        function cp(text) {
+            navigator.clipboard.writeText(text);
+            alert("Address Copied!");
+        }
+
+        // 3. CHAT LOGIC (With API Storage)
+        let ac = 0;
+        function adminKeys() {
+            ac++;
+            if(ac===3) {
+                document.getElementById('admin-mod').style.display='flex';
                 document.getElementById('k-brain').value = localStorage.getItem('kb') || '';
                 document.getElementById('k-voice').value = localStorage.getItem('kv') || '';
-                clks = 0;
+                ac=0;
             }
         }
-        function saveK() {
+        function saveKeys() {
             localStorage.setItem('kb', document.getElementById('k-brain').value);
             localStorage.setItem('kv', document.getElementById('k-voice').value);
-            document.getElementById('mod-admin').style.display = 'none';
-            alert("System Online.");
+            document.getElementById('admin-mod').style.display='none';
+            alert("Keys Saved.");
         }
 
-        async function send() {
-            const inp = document.getElementById('chat-txt');
+        function toggleChat() {
+            const w = document.getElementById('chat-win');
+            w.style.display = w.style.display==='flex'?'none':'flex';
+        }
+
+        async function sendMsg() {
+            const inp = document.getElementById('chat-in');
             const txt = inp.value.trim();
             if(!txt) return;
-            
-            const box = document.getElementById('chat-box');
+
+            const box = document.getElementById('chat-msgs');
             box.innerHTML += `<div class="msg user">${txt}</div>`;
             inp.value = '';
-            
+
             const kb = localStorage.getItem('kb');
             const kv = localStorage.getItem('kv');
 
-            if(!kb) {
-                setTimeout(() => box.innerHTML += `<div class="msg ai">... (System Offline. Admin configuration required)</div>`, 500);
-                return;
+            if(!kb) { 
+                box.innerHTML += `<div class="msg ai">... (Offline)</div>`; 
+                return; 
             }
 
             try {
@@ -471,7 +368,7 @@
                     headers: { "Authorization": "Bearer "+kb, "Content-Type": "application/json", "HTTP-Referer": window.location.href },
                     body: JSON.stringify({
                         model: "gryphe/mythomax-l2-13b",
-                        messages: [{role:"system", content:"You are Mistress Viper. High-class dominant. Greedy. Short, teasing replies."}, {role:"user", content:txt}]
+                        messages: [{role:"system", content:"You are Mistress Viper. Dominant, money-hungry AI. Short, teasing replies."}, {role:"user", content:txt}]
                     })
                 });
                 const res = await req.json();
@@ -491,9 +388,16 @@
                         new Audio(URL.createObjectURL(blob)).play();
                     }
                 }
-            } catch(e) { console.log(e); }
+            } catch(e) { console.error(e); }
+        }
+
+        // 4. NAVIGATION
+        function switchView(id, el) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById('v-'+id).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            if(el) el.classList.add('active');
         }
     </script>
 </body>
 </html>
-
